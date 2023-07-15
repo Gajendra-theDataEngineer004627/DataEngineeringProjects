@@ -1,10 +1,7 @@
-Hotenberg, C
-
 
 Hive doesnt have storage 
 Hive is Hadoop datawarehouse system 
-Hive can create table from structured data , semistructured data  like json 
-
+Hive can create table from structured data , semistructured data  like json, avro, parquet.
 
 Databases and data warehouses are both storage systems used to manage and organize data, but they serve different purposes and have distinct characteristics. Here's a breakdown of the differences between a database and a data warehouse:
 
@@ -115,6 +112,53 @@ data-set
 http://ita.ee.lbl.gov/html/contrib/NASA-HTTP.html
 
 
+log file are stored in Apache Common log format(CLF)
+
+For Hive there is Built in SerDes (Serializer/ Deserializer)
+1) AVRO
+2) ORC
+3) RegEx **
+4) Thrift
+5) Parquet
+6) CSV
+7) JsonSerDe
+
+eg. RegEx SerDe usage -
+	
+	ROW FROMAT SERDE 'or.apache.hadoop.hive.serde2.RegexSerDe'
+	WITH SERDEPROPERTIES (
+	" input.regex" = "([^]*) ([^]*) ([^]*) (-|\\[^\\]*\\]) (^ \"]*)"
+	)
+	STORED AS TEXTFILE;  ---> IT WILL BE STORED AS TEXT BY DEFAULT 
+							  WE CAN MENTION AS PER REQUIREMENT AVRO, PARQUET & JSON
+							  
+	SENSORS DATA AND ANALYSED 
+
+
+===========APACHE IMPALA=============
+Impala has it own engine 
+Impala hav the impala demon that runs query unlike the hive queries that were ran by Mapreduce
+The Impala daemon, also known as impalad, is a key component of the Apache Impala project. Apache Impala is an open-source massively parallel processing (MPP) SQL query engine designed for high-performance interactive analytics on large datasets stored in Apache Hadoop Distributed File System (HDFS) or Apache HBase.
+The Impala daemon runs on each node of an Impala cluster and is responsible for executing queries, managing data locality, and coordinating with other daemons to distribute and parallelize query execution across the cluster. Each impalad instance operates as an independent node and can process queries concurrently.
+When a query is submitted to an Impala cluster, it is typically directed to a coordinator daemon, which analyzes the query, creates an execution plan, and distributes the work across the impalad instances. The coordinator communicates with the impalads to coordinate the execution and aggregation of results. The impalads perform the actual query execution by scanning the data files and processing the data in parallel.
+The Impala daemon leverages in-memory processing and sophisticated optimizations to provide low-latency interactive queries, making it suitable for business intelligence, ad hoc analytics, and exploratory data analysis use cases.
+In summary, the Impala daemon is a fundamental component of the Impala architecture, responsible for executing queries and coordinating the parallel processing of data across an Impala cluster to deliver fast, interactive SQL-based analytics on large datasets.
+
+impala query is not fault tolarant 
+
+if we have ETL use hive 
+
+Hives MetaStore is used in even Apache Imapala, Apache Spark 
+
+
+
+
+
+
+	
+	
+	
+	
 SCALA + SPARK --> Best 
 
 How Do you partition the DATA ..???
