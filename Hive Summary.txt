@@ -1,0 +1,124 @@
+Hotenberg, C
+
+
+Hive doesnt have storage 
+Hive is Hadoop datawarehouse system 
+Hive can create table from structured data , semistructured data  like json 
+
+
+Databases and data warehouses are both storage systems used to manage and organize data, but they serve different purposes and have distinct characteristics. Here's a breakdown of the differences between a database and a data warehouse:
+
+1. Purpose:
+   - Database: A database is a system designed for efficient storage, retrieval, and management of structured data. It is typically used for transactional processing(OLTP), where the emphasis is on real-time data operations, such as inserting, updating, and deleting records. Databases are commonly used for operational systems that support day-to-day business activities.
+   - Data Warehouse: A data warehouse, on the other hand, is a centralized repository that integrates data from various sources to support analytics, reporting, and decision-making processes. It is optimized for read-intensive queries and complex data analysis. Data warehouses are used for historical analysis, trend identification, and business intelligence.
+
+2. Data Structure:
+   - Database: Databases typically store structured data, which is organized into tables with predefined schemas. They enforce data integrity through constraints and provide transactional capabilities to ensure data consistency.
+   - Data Warehouse: Data warehouses can handle structured, semi-structured, and unstructured data. They often store large volumes of data in denormalized or dimensional models, optimized for query performance and analytics. Data warehouses support complex aggregations, data transformations, and multi-dimensional analysis.
+
+3. Data Integration:
+   - Database: Databases are primarily focused on storing and managing data from a single application or a specific domain. They are designed to handle operational data from a specific business process or application.
+   - Data Warehouse: Data warehouses consolidate data from multiple sources, such as databases, external systems, and even cloud platforms. They integrate data from various operational systems to provide a unified and comprehensive view of the organization's data.
+
+4. Data History and Granularity:
+   - Database: Databases typically store current or near-real-time data and focus on the latest state of the data. They emphasize individual transactional records and maintain detailed transactional history for auditing purposes.
+   - Data Warehouse: Data warehouses store historical data over time, capturing changes and preserving a historical perspective. They often maintain data at different levels of granularity, allowing for analysis at different time intervals (e.g., daily, weekly, monthly) and different levels of detail.
+
+5. Query and Performance Optimization:
+   - Database: Databases are optimized for transactional operations and handling small-scale queries that target specific records or subsets of data. They prioritize transactional consistency and real-time data access.
+   - Data Warehouse: Data warehouses are designed for complex analytical queries that involve aggregations, joins, and multi-dimensional analysis. They employ query optimization techniques, such as indexing, partitioning, and pre-aggregations, to ensure efficient and fast retrieval of large volumes of data.
+
+In summary, databases are focused on efficient storage and management of structured data for real-time transactional processing, while data warehouses are centralized repositories optimized for analytics, reporting, and decision support. Databases handle operational data, while data warehouses integrate and consolidate data from multiple sources to provide a comprehensive view for analysis and historical reporting.
+
+===================Analogy==========================
+Imagine you have a library with different sections dedicated to different types of books, such as fiction, non-fiction, science, and history. Each section represents a separate database.
+
+The databases in our analogy would be similar to the individual sections of the library. They are optimized for storing and managing specific types of books. For example, the fiction section would store and organize fiction books, the science section would handle science-related books, and so on. Each section operates independently, maintaining its own organization and categorization system.
+
+Now, let's consider the need for a data warehouse. A data warehouse would be like a centralized reading room or a research section within the library. Its purpose is to integrate information from different sections (databases) and provide a comprehensive resource for analysis and research.
+
+In the data warehouse, librarians collect books from various sections of the library and organize them in a way that facilitates research, trend analysis, and historical perspective. They might create separate shelves for historical fiction books, scientific research publications, or biographies. The data warehouse enables users to examine trends, patterns, and correlations that can't be easily identified by looking at individual sections alone.
+
+In this analogy, the databases represent individual sections specialized in managing specific types of data, just as different databases focus on specific types of data in real-world applications. The data warehouse acts as a centralized repository that integrates data from multiple sources (library sections) and provides a unified view for analysis and decision-making.
+
+The databases are designed for day-to-day operations, similar to how library sections handle daily book checkouts and returns. They prioritize transactional consistency and real-time data access. On the other hand, the data warehouse is optimized for analytical queries, summarizations, and historical analysis, similar to how the research section allows users to explore and analyze a wide range of topics in-depth.
+
+In summary, databases and data warehouses are like the sections of a library and a dedicated research section. Databases handle specific types of data in separate compartments, while the data warehouse integrates and organizes data from various sources for comprehensive analysis and research purposes.
+
+
+====================
+As hive convert the query into map reduce job it takes time to execute so that gutenberg implemented hive + tez but on cloudera tez doesnt supports so cloudera implemented impala(Apache Impala) for in memory processing .
+Datawarehouse is strore your huge structured data to analyse data and find the trends in it. (its not OLTP systm)
+rather it is OLAP(Online Analitical Processing)
+Although Hive cannot replace proper datawarehouse(like Teradata)
+
+HOT Data & Cold Data 
+
+Bulk loading of Data 
+
+LLAP is a feature that gives the hive realtime performance but it also required resources its not supported on cloudera
+
+command-line interface (CLI) for the hive
+hive 
+beeline -u 
+
+Hive --> have Compiler, optimiser and Executor)  and then push it at mapreduce program
+Cloudera Manager --> Hive --> Configuration --> HiveServer2 Load Balancer
+Cloudera Manager --> Hive --> Configuration --> Hive Metastore Database type --> mysql 
+Metastore -->  metadata is stored in mysql, 
+
+CBO --> cost based optimizer for hive --> It will generate multiple plan for the complex queries and then select best one which saves money
+
+commands for hive 
+(hive-site.xml)
+cd /etc/hive/config   --> hive-site.xml  it contains all the properties of the Hive we can change some based on requirement 
+
+hive.cli.print.current.db=true    ---> to show the database using along with each command
+
+load data local inpath '---------path----/abc.txt' intotable reference
+descibe table name(tabls schemas)
+
+load data inpath '----------path--------.csv/txt'
+
+Hive  JsonSerde --> create a table using serde(serialization and decerail)
+
+
+======================
+Schema on Write is an approach used in data processing and storage systems where the structure and schema of the data are defined and enforced during the data ingestion process, typically at the time of writing the data to the storage system.
+In a Schema on Write approach, data is validated and transformed according to a predefined schema before it is stored. This schema defines the structure, data types, and constraints of the data. The system ensures that the incoming data conforms to the schema and rejects any data that does not meet the defined rules.
+Here are some key aspects of Schema on Write:
+1. Data Validation: When data is ingested into the system, it is validated against the predefined schema to ensure it adheres to the expected structure and constraints. Any data that doesn't comply with the schema is rejected or marked as invalid.
+2. Upfront Schema Design: Schema on Write requires designing the schema upfront before data is written. This schema design includes defining the data types, field names, relationships, and other structural aspects of the data.
+3. Data Transformation: In Schema on Write, data may undergo transformations during the ingestion process to conform to the schema. This can involve data cleaning, normalization, or aggregations as necessary.
+4. Storage Optimization: With Schema on Write, the storage system can optimize data storage and indexing based on the known schema. This can lead to more efficient storage and retrieval operations since the system has prior knowledge of the data structure.
+5. Data Consistency: By enforcing the schema during data ingestion, Schema on Write helps maintain data consistency and integrity. The system ensures that only valid and properly formatted data is stored, which can help avoid data quality issues downstream.
+An example of a system that follows the Schema on Write approach is a relational database management system (RDBMS) where a predefined schema is defined using SQL Data Definition Language (DDL) statements. When data is inserted into the database, it must adhere to the defined schema, and any violations will result in errors.
+Schema on Write is in contrast to the Schema on Read approach, where the schema is applied during the data retrieval or querying phase rather than during data ingestion. In Schema on Read, the raw data is stored as-is, and the structure and interpretation of the data are determined at the time of querying or analysis.
+Both Schema on Write and Schema on Read have their own advantages and use cases, and the choice between the two approaches depends on the specific requirements and characteristics of the data processing and storage system.
+
+
+Schema on write --> RDBMS systems or typical systems
+Schema on read  --> Hive  , while quering the data it will validate, it schema on read for faster uploads and faster reading of data
+================================
+We can use hue in cloudera(by default it is present there)
+
+Managed Table
+External Table 
+
+Scqoop can take data from oracle and dump where it has to push , Ozie is used to scheduled the ingestion job of data
+
+==================================
+CASE Study : Analysig WebServer LOGS with Hive
+How to Derive insights from the web server logs. The insights can be used for monitoring servers, user behaviour, fraud detection,
+improving business intelligence etc.
+data-set
+http://ita.ee.lbl.gov/html/contrib/NASA-HTTP.html
+
+
+SCALA + SPARK --> Best 
+
+How Do you partition the DATA ..???
+
+
+
+
