@@ -150,19 +150,76 @@ if we have ETL use hive
 
 Hives MetaStore is used in even Apache Imapala, Apache Spark 
 
-
-
-
-
-
-	
-	
-	
-	
 SCALA + SPARK --> Best 
 
+============================PARTITIONING IN HIVE===========================================
 How Do you partition the DATA ..???
+To 
 
+Static Partitioning 
+data may not have same the column and need to pass when inserting data or loading 
+
+Dynamic Partitioning
+it is by default disable in hive need to enable if we want to use it even in production because that may cause problem 
+1st need to load data into the intermediate table (normal table) and then need to load the data in to dynamically partitioned 
+table 
+
+need to enable some properties for 
+
+set.hive.exec.dnamic.partition=true;
+set.hive.exec.dnamic.partition.mode=nonstrict;
+set.hive.exec.max.dnamic.partitions=100;
+set.hive.exec.max.dnamic.partitions.pernode=100;   ---> 100 reducers 
+
+
+BUCKETing 
+Buckets concept in Hive 
+Use Bucketed join --
+	bucket joins 
+	
+Enable bucketing 
+set hive.enforce.bucketing=true
+	
+HashPartitioning in RDBMS
+
+ORC --> compressed 
+	--> have index on row & column in both
+	--> support vectorization
+if enable vectorization
+vecorization we can read 10000 read at a time ..!!!
+10,000 --- orc.row.index.stride -- no. of rows between index entries (must be >=1000)
+
+Predicate PushDown(PPD)  --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Partitioning of particular table is done when the cardinality is less eg. countrywise, month
+based on query and data required. 
+
+SHARDING in NOSQL --> physical division of data (nosql is denormalised)
+
+But in Hive data is logically division of Data 
 
 
 
